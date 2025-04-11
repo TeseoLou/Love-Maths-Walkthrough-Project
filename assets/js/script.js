@@ -47,10 +47,28 @@ function runGame(gameType) {
   }
 }
 
-function checkAnswer() {}
+/**
+ * Gets the operands and the operator directly from the DOM , and returns the correct answer
+ */
+function checkAnswer() {
+    // Get the numbers from the element with ids "operand1" and "operand2" and parseInt converts them to integers
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    // Get the operator symbol (+, -, x, ÷) from the element with id "operator"
+    let operator = document.getElementById("operator").innerText;
+    // Check the operator and return the correct answer and game type
+    if (operator === "+") {
+        // If the operator is addition, return the sum and the string "addition"
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`Unimplemented operator ${operator}!`);
+        // If the operator is not implemented, alert the user and throw an error
+        throw `Unimplemented operator ${operator}, aborting!`;
+    }
+}
 
 function calculateCorrectAnswer() {
-    
+
 }
 
 function incrementScore() {}
