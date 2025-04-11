@@ -47,8 +47,26 @@ function runGame(gameType) {
   }
 }
 
+/**
+ * Checks the user's answer against the correct answer,
+ * gives feedback via alert, and restarts the game.
+ */
 function checkAnswer() {
-    
+    // Get the user's answer from the input box and convert it to an integer
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    // Call the calculateCorrectAnswer function to get the actual correct answer and game type
+    let calculatedAnswer = calculateCorrectAnswer();
+    // Compare the user's answer to the correct answer
+    let isCorrect = userAnswer === calculatedAnswer[0];    
+    if (isCorrect === true) {
+        // If the answer is correct, alert the user with a success message
+        alert("Hey! You got it right!");
+    } else {
+        // If the answer is incorrect, alert the user with the correct answer
+        alert(`Sorry! ${userAnswer} was the incorrect answer, the correct answer was ${calculatedAnswer[0]}.`);
+    };
+    // Start a new game using the same game type
+    runGame(calculatedAnswer[1]);
 }
 
 /**
