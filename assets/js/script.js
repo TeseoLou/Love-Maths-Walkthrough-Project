@@ -15,17 +15,36 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 // Get the value of the data-type attribute for other buttons
                 let gameType = this.getAttribute("data-type");
-                // Show an alert displaying which button was clicked
-                alert(`You clicked ${gameType}`);
+                // Call the runGame function, passing in the game type as an argument
+                runGame("gameType");
             };
         });
     };
+    // Call the runGame function initially with "addition" as the default game type
+    runGame("addition");
 });
 
-function runGame() {
+// Docstring for runGame function
+/**
+ * The Main game "loop", called when the script is first loaded
+ * and after the user's answer has been processed
+ */
+// Define the main game function and accept a parameter called gameType to determine the type of game
+function runGame(gameType) {
     // Generate two random numbers between 1-25 and assign them to num1 and num2
     let num1 = Math.floor(Math.random()*25)+1;
     let num2 = Math.floor(Math.random()*25)+1;
+
+    // Check if the game type is "addition"
+    if (gameType === "addition") {
+        // If so, call the function to display an addition question using the two numbers
+        displayAdditionQuestion(num1,num2);
+    } else {
+        // If the game type is not recognized, alert the user
+        alert(`Unknown game type: ${gameType}`)
+         // Then throw an error to stop execution and signal the issue
+        throw `Unknown game type: ${gameType}. Aborting!`
+    }
 };
 
 function checkAnswer() {
