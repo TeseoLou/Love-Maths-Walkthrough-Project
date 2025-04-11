@@ -137,12 +137,12 @@ function displayAdditionQuestion(operand1, operand2) {
 
 function displaySubtractionQuestion() {}
 
-function displayMultiplicationQuestion() {
-  // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
-  document.getElementById("operand1").textContent = operand1;
-  document.getElementById("operand2").textContent = operand2;
-  // Set the text of the element with id "operator" to the multiplication symbol
-  document.getElementById("operator").textContent = "x";
-}
+function displayMultiplicationQuestion(operand1, operand2) {
+    // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    // Set the text of the element with id "operator" to the multiplication symbol
+    document.getElementById("operator").textContent = "x";
+  }
 
 function displayDivisionQuestion() {}
