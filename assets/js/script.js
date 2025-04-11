@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function () {
       // Check if the clicked button has a data-type attribute of "submit"
       if (this.getAttribute("data-type") === "submit") {
-        // Show an alert specific to the Submit button
-        alert("You clicked Submit!");
+        // Run checkAnswer function
+        checkAnswer();
       } else {
         // Get the value of the data-type attribute for other buttons
         let gameType = this.getAttribute("data-type");
@@ -55,20 +55,20 @@ function checkAnswer() {
  * Gets the operands and the operator directly from the DOM , and returns the correct answer
  */
 function calculateCorrectAnswer() {
-    // Get the numbers from the element with ids "operand1" and "operand2" and parseInt converts them to integers
-    let operand1 = parseInt(document.getElementById("operand1").innerText);
-    let operand2 = parseInt(document.getElementById("operand2").innerText);
-    // Get the operator symbol (+, -, x, ÷) from the element with id "operator"
-    let operator = document.getElementById("operator").innerText;
-    // Check the operator and return the correct answer and game type
-    if (operator === "+") {
-        // If the operator is addition, return the sum and the string "addition"
-        return [operand1 + operand2, "addition"];
-    } else {
-        alert(`Unimplemented operator ${operator}!`);
-        // If the operator is not implemented, alert the user and throw an error
-        throw `Unimplemented operator ${operator}, aborting!`;
-    }
+  // Get the numbers from the element with ids "operand1" and "operand2" and parseInt converts them to integers
+  let operand1 = parseInt(document.getElementById("operand1").innerText);
+  let operand2 = parseInt(document.getElementById("operand2").innerText);
+  // Get the operator symbol (+, -, x, ÷) from the element with id "operator"
+  let operator = document.getElementById("operator").innerText;
+  // Check the operator and return the correct answer and game type
+  if (operator === "+") {
+    // If the operator is addition, return the sum and the string "addition"
+    return [operand1 + operand2, "addition"];
+  } else {
+    alert(`Unimplemented operator ${operator}!`);
+    // If the operator is not implemented, alert the user and throw an error
+    throw `Unimplemented operator ${operator}, aborting!`;
+  }
 }
 
 function incrementScore() {}
