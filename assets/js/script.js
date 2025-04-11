@@ -58,8 +58,6 @@ function incrementWrongAnswer() {}
 /**
  * Displays an addition question by updating the DOM elements
  * with the two operands and the addition operator.
- * @param {number} operand1 - The first number in the equation
- * @param {number} operand2 - The second number in the equation
  */
 function displayAdditionQuestion(operand1, operand2) {
   // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
