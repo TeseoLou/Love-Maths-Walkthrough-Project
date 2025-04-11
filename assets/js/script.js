@@ -47,10 +47,14 @@ function runGame(gameType) {
   }
 }
 
+function checkAnswer() {
+    
+}
+
 /**
  * Gets the operands and the operator directly from the DOM , and returns the correct answer
  */
-function checkAnswer() {
+function calculateCorrectAnswer() {
     // Get the numbers from the element with ids "operand1" and "operand2" and parseInt converts them to integers
     let operand1 = parseInt(document.getElementById("operand1").innerText);
     let operand2 = parseInt(document.getElementById("operand2").innerText);
@@ -65,10 +69,6 @@ function checkAnswer() {
         // If the operator is not implemented, alert the user and throw an error
         throw `Unimplemented operator ${operator}, aborting!`;
     }
-}
-
-function calculateCorrectAnswer() {
-
 }
 
 function incrementScore() {}
