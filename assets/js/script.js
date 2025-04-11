@@ -39,6 +39,9 @@ function runGame(gameType) {
   if (gameType === "addition") {
     // If so, call the function to display an addition question using the two numbers
     displayAdditionQuestion(num1, num2);
+  } else if (gameType === "multiplication") {
+    // If so, call the function to display an multiplication question using the two numbers
+    displayMultiplicationQuestion(num1, num2);
   } else {
     // If the game type is not recognized, alert the user
     alert(`Unknown game type: ${gameType}`);
@@ -52,25 +55,27 @@ function runGame(gameType) {
  * gives feedback via alert, and restarts the game.
  */
 function checkAnswer() {
-    // Get the user's answer from the input box and convert it to an integer
-    let userAnswer = parseInt(document.getElementById("answer--box").value);
-    // Call the calculateCorrectAnswer function to get the actual correct answer and game type
-    let calculatedAnswer = calculateCorrectAnswer();
-    // Compare the user's answer to the correct answer
-    let isCorrect = userAnswer === calculatedAnswer[0];    
-    if (isCorrect === true) {
-        // If the answer is correct, alert the user with a success message
-        alert("Hey! You got it right!");
-        // Increment the score
-        incrementScore();
-    } else {
-        // If the answer is incorrect, alert the user with the correct answer
-        alert(`Sorry! ${userAnswer} was the incorrect answer, the correct answer was ${calculatedAnswer[0]}.`);
-        // Increment the incorrect score
-        incrementWrongAnswer();
-    };
-    // Start a new game using the same game type
-    runGame(calculatedAnswer[1]);
+  // Get the user's answer from the input box and convert it to an integer
+  let userAnswer = parseInt(document.getElementById("answer--box").value);
+  // Call the calculateCorrectAnswer function to get the actual correct answer and game type
+  let calculatedAnswer = calculateCorrectAnswer();
+  // Compare the user's answer to the correct answer
+  let isCorrect = userAnswer === calculatedAnswer[0];
+  if (isCorrect === true) {
+    // If the answer is correct, alert the user with a success message
+    alert("Hey! You got it right!");
+    // Increment the score
+    incrementScore();
+  } else {
+    // If the answer is incorrect, alert the user with the correct answer
+    alert(
+      `Sorry! ${userAnswer} was the incorrect answer, the correct answer was ${calculatedAnswer[0]}.`
+    );
+    // Increment the incorrect score
+    incrementWrongAnswer();
+  }
+  // Start a new game using the same game type
+  runGame(calculatedAnswer[1]);
 }
 
 /**
@@ -86,6 +91,9 @@ function calculateCorrectAnswer() {
   if (operator === "+") {
     // If the operator is addition, return the sum and the string "addition"
     return [operand1 + operand2, "addition"];
+  } else if (operator === "x") {
+    // If the operator is multiplication, return the product and the string "multiplication"
+    return [operand1 * operand2, "multiplication"];
   } else {
     alert(`Unimplemented operator ${operator}!`);
     // If the operator is not implemented, alert the user and throw an error
@@ -98,10 +106,10 @@ function calculateCorrectAnswer() {
  * and updates the score display in the DOM.
  */
 function incrementScore() {
-    // Retrieve the current score from the DOM and convert it to an integer
-    let oldScore = parseInt(document.getElementById("score").innerText);
-    // Increment the score by 1 and update the DOM
-    document.getElementById("score").innerText = ++oldScore;
+  // Retrieve the current score from the DOM and convert it to an integer
+  let oldScore = parseInt(document.getElementById("score").innerText);
+  // Increment the score by 1 and update the DOM
+  document.getElementById("score").innerText = ++oldScore;
 }
 
 /**
@@ -109,10 +117,10 @@ function incrementScore() {
  * and updates the incorrect answer display in the DOM.
  */
 function incrementWrongAnswer() {
-    // Retrieve the current incorrect answer count from the DOM and convert it to an integer
-    let oldScore = parseInt(document.getElementById("incorrect").innerText);
-    // Increment the incorrect answer count by 1 and update the DOM
-    document.getElementById("incorrect").innerText = ++oldScore;
+  // Retrieve the current incorrect answer count from the DOM and convert it to an integer
+  let oldScore = parseInt(document.getElementById("incorrect").innerText);
+  // Increment the incorrect answer count by 1 and update the DOM
+  document.getElementById("incorrect").innerText = ++oldScore;
 }
 
 /**
@@ -129,6 +137,12 @@ function displayAdditionQuestion(operand1, operand2) {
 
 function displaySubtractionQuestion() {}
 
-function displayMultiplicationQuestion() {}
+function displayMultiplicationQuestion() {
+  // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
+  document.getElementById("operand1").textContent = operand1;
+  document.getElementById("operand2").textContent = operand2;
+  // Set the text of the element with id "operator" to the multiplication symbol
+  document.getElementById("operator").textContent = "x";
+}
 
 function displayDivisionQuestion() {}
