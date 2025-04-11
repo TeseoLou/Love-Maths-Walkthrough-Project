@@ -49,7 +49,9 @@ function runGame(gameType) {
 
 function checkAnswer() {}
 
-function calculateCorrectAnswer() {}
+function calculateCorrectAnswer() {
+    
+}
 
 function incrementScore() {}
 
