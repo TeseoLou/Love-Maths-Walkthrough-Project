@@ -21,6 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+  // Add an event listener to the answer input box to detect when the Enter key is pressed
+  document.getElementById("answer--box").addEventListener("keydown", function(event) {
+    // If the key pressed is "Enter", submit the answer by calling checkAnswer
+    if (event.key === "Enter") {
+      checkAnswer();
+    }
+  })
 
   // Start the game with addition as the default when the page loads
   runGame(currentGameType);
