@@ -78,13 +78,10 @@ function runGame(gameType) {
 function checkAnswer() {
   // Get the user's answer from the input box and convert it to a number
   let userAnswer = parseInt(document.getElementById("answer--box").value);
-
   // Calculate the correct answer based on the current game type
   let correctAnswer = calculateCorrectAnswer();
-
   // Check if the user's answer matches the correct answer
   let isCorrect = userAnswer === correctAnswer;
-
   // Give feedback based on whether the answer was correct or not
   if (isCorrect) {
     alert("Hey! You got it right!");
@@ -93,7 +90,6 @@ function checkAnswer() {
     alert(`Sorry! ${userAnswer} was incorrect. The correct answer was ${correctAnswer}.`);
     incrementWrongAnswer(); // Add to the incorrect score
   }
-
   // Start a new round using the same game type
   runGame(currentGameType);
 }
