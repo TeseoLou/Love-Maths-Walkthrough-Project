@@ -41,10 +41,21 @@ function runGame(gameType) {
   document.getElementById("answer--box").value = "";
   // Move focus back to the input box for user convenience
   document.getElementById("answer--box").focus();
-  // Generate two random numbers between 1 and 25
-  let num1 = Math.floor(Math.random() * 25) + 1;
-  let num2 = Math.floor(Math.random() * 25) + 1;
-
+  // Declare variables to hold the two operands
+  let num1, num2;
+  if (gameType === "division") {
+    // Generate numbers that guarantee an integer result for division
+    // Pick a random number between 1 and 12 to use as the divisor
+    num2 = Math.floor(Math.random() * 12) + 1;
+    // Pick another random number between 1 and 12 to serve as the intended result
+    let product = Math.floor(Math.random() * 12) + 1;
+    // Multiply divisor and result to get a dividend that divides evenly
+    num1 = num2 * product;
+  } else {
+    // For addition, subtraction, and multiplication, pick two random numbers between 1 and 25
+    num1 = Math.floor(Math.random() * 25) + 1;
+    num2 = Math.floor(Math.random() * 25) + 1;
+  }
   // Depending on the game type, show the appropriate question
   if (gameType === "addition") {
     displayAdditionQuestion(num1, num2);
