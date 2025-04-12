@@ -22,12 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   // Add an event listener to the answer input box to detect when the Enter key is pressed
-  document.getElementById("answer--box").addEventListener("keydown", function(event) {
-    // If the key pressed is "Enter", submit the answer by calling checkAnswer
-    if (event.key === "Enter") {
-      checkAnswer();
-    }
-  })
+  document
+    .getElementById("answer--box")
+    .addEventListener("keydown", function (event) {
+      // If the key pressed is "Enter", submit the answer by calling checkAnswer
+      if (event.key === "Enter") {
+        checkAnswer();
+      }
+    });
 
   // Start the game with addition as the default when the page loads
   runGame(currentGameType);
@@ -87,7 +89,9 @@ function checkAnswer() {
     alert("Hey! You got it right!");
     incrementScore(); // Add to the correct score
   } else {
-    alert(`Sorry! ${userAnswer} was incorrect. The correct answer was ${correctAnswer}.`);
+    alert(
+      `Sorry! ${userAnswer} was incorrect. The correct answer was ${correctAnswer}.`
+    );
     incrementWrongAnswer(); // Add to the incorrect score
   }
   // Start a new round using the same game type
