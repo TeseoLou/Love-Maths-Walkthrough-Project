@@ -1,169 +1,173 @@
-// No variables created within global scope
-// Wait for the DOM to finish loading before running the game
-// Get the button elements and add event listeners to them
+// Declare a global variable to track the currently selected game type
+let currentGameType = "addition";
+
+// Wait for the page to fully load before running any scripts
 document.addEventListener("DOMContentLoaded", function () {
-  // Get all button elements in the document
+  // Get all the button elements in the document
   let buttons = document.getElementsByTagName("button");
+
   // Loop through each button element
   for (let button of buttons) {
     // Add a click event listener to each button
     button.addEventListener("click", function () {
-      // Check if the clicked button has a data-type attribute of "submit"
+      // If the button clicked has a data-type of "submit", check the answer
       if (this.getAttribute("data-type") === "submit") {
-        // Run checkAnswer function
-        checkAnswer();
+        checkAnswer(); // Run the checkAnswer function
       } else {
-        // Get the value of the data-type attribute for other buttons
-        let gameType = this.getAttribute("data-type");
-        // Call the runGame function, passing in the game type as an argument
-        runGame(gameType);
+        // Otherwise, get the selected game type from the button
+        currentGameType = this.getAttribute("data-type");
+        // Start a new game using the selected game type
+        runGame(currentGameType);
       }
     });
   }
-  // Call the runGame function initially with "addition" as the default game type
-  runGame("addition");
+
+  // Start the game with addition as the default when the page loads
+  runGame(currentGameType);
 });
 
-// Docstring for runGame function
 /**
- * The Main game "loop", called when the script is first loaded
- * and after the user's answer has been processed
+ * Runs a new round of the game with the given game type
  */
-// Define the main game function and accept a parameter called gameType to determine the type of game
 function runGame(gameType) {
-  // Each time runGame function is called it sets value of "answer-box" to empty
+  // Clear any previous answer from the input box
   document.getElementById("answer-box").value = "";
-  // Generate two random numbers between 1-25 and assign them to num1 and num2
+
+  // Generate two random numbers between 1 and 25
   let num1 = Math.floor(Math.random() * 25) + 1;
   let num2 = Math.floor(Math.random() * 25) + 1;
-  // Check if the game type is "addition"
+
+  // Depending on the game type, show the appropriate question
   if (gameType === "addition") {
-    // If so, call the function to display an addition question using the two numbers
     displayAdditionQuestion(num1, num2);
   } else if (gameType === "subtraction") {
-    // If so, call the function to display an subtraction question using the two numbers
     displaySubtractionQuestion(num1, num2);
   } else if (gameType === "multiplication") {
-    // If so, call the function to display an multiplication question using the two numbers
     displayMultiplicationQuestion(num1, num2);
+  } else if (gameType === "division") {
+    displayDivisionQuestion(num1, num2);
   } else {
-    // If the game type is not recognized, alert the user
+    // If an unknown game type is passed, show an error
     alert(`Unknown game type: ${gameType}`);
-    // Then throw an error to stop execution and signal the issue
     throw `Unknown game type: ${gameType}. Aborting!`;
   }
-};
+}
 
 /**
- * Checks the user's answer against the correct answer,
- * gives feedback via alert, and restarts the game.
+ * Checks if the user's answer is correct and gives feedback
  */
 function checkAnswer() {
-  // Get the user's answer from the input box and convert it to an integer
-  let userAnswer = parseInt(document.getElementById("answer--box").value);
-  // Call the calculateCorrectAnswer function to get the actual correct answer and game type
-  let calculatedAnswer = calculateCorrectAnswer();
-  // Compare the user's answer to the correct answer
-  let isCorrect = userAnswer === calculatedAnswer[0];
-  if (isCorrect === true) {
-    // If the answer is correct, alert the user with a success message
+  // Get the user's answer from the input box and convert it to a number
+  let userAnswer = parseInt(document.getElementById("answer-box").value);
+
+  // Calculate the correct answer based on the current game type
+  let correctAnswer = calculateCorrectAnswer();
+
+  // Check if the user's answer matches the correct answer
+  let isCorrect = userAnswer === correctAnswer;
+
+  // Give feedback based on whether the answer was correct or not
+  if (isCorrect) {
     alert("Hey! You got it right!");
-    // Increment the score
-    incrementScore();
+    incrementScore(); // Add to the correct score
   } else {
-    // If the answer is incorrect, alert the user with the correct answer
-    alert(
-      `Sorry! ${userAnswer} was the incorrect answer, the correct answer was ${calculatedAnswer[0]}.`
-    );
-    // Increment the incorrect score
-    incrementWrongAnswer();
+    alert(`Sorry! ${userAnswer} was incorrect. The correct answer was ${correctAnswer}.`);
+    incrementWrongAnswer(); // Add to the incorrect score
   }
-  // Start a new game using the same game type
-  runGame(calculatedAnswer[1]);
-};
+
+  // Start a new round using the same game type
+  runGame(currentGameType);
+}
 
 /**
- * Gets the operands and the operator directly from the DOM , and returns the correct answer
+ * Returns the correct answer based on the operands and operator
  */
 function calculateCorrectAnswer() {
-  // Get the numbers from the element with ids "operand1" and "operand2" and parseInt converts them to integers
+  // Get the numbers shown in the question
   let operand1 = parseInt(document.getElementById("operand1").innerText);
   let operand2 = parseInt(document.getElementById("operand2").innerText);
-  // Get the operator symbol (+, -, x, ÷) from the element with id "operator"
-  let operator = document.getElementById("operator").innerText;
-  // Check the operator and return the correct answer and game type
-  if (operator === "+") {
-    // If the operator is addition, return the sum and the string "addition"
-    return [operand1 + operand2, "addition"];
-  } else if (operator === "-") {
-    // If the operator is subtraction, return the product and the string "subtraction""
-    return [operand1 - operand2, "subtraction"];
-  } else if (operator === "x") {
-    // If the operator is multiplication, return the product and the string "multiplication"
-    return [operand1 * operand2, "multiplication"];
+
+  // Perform the correct calculation depending on the game type
+  if (currentGameType === "addition") {
+    return operand1 + operand2;
+  } else if (currentGameType === "subtraction") {
+    return operand1 - operand2;
+  } else if (currentGameType === "multiplication") {
+    return operand1 * operand2;
+  } else if (currentGameType === "division") {
+    return operand1 / operand2;
   } else {
-    alert(`Unimplemented operator ${operator}!`);
-    // If the operator is not implemented, alert the user and throw an error
-    throw `Unimplemented operator ${operator}, aborting!`;
+    alert(`Unimplemented game type: ${currentGameType}`);
+    throw `Unimplemented game type: ${currentGameType}`;
   }
-};
+}
 
 /**
- * Increments the user's correct answer score by 1
- * and updates the score display in the DOM.
+ * Increases the score shown on the page for correct answers
  */
 function incrementScore() {
-  // Retrieve the current score from the DOM and convert it to an integer
+  // Get the current score from the page and convert to number
   let oldScore = parseInt(document.getElementById("score").innerText);
-  // Increment the score by 1 and update the DOM
+  // Increase it by 1 and update the page
   document.getElementById("score").innerText = ++oldScore;
-};
+}
 
 /**
- * Increments the user's incorrect answer count by 1
- * and updates the incorrect answer display in the DOM.
+ * Increases the score shown on the page for incorrect answers
  */
 function incrementWrongAnswer() {
-  // Retrieve the current incorrect answer count from the DOM and convert it to an integer
+  // Get the current incorrect score and convert to number
   let oldScore = parseInt(document.getElementById("incorrect").innerText);
-  // Increment the incorrect answer count by 1 and update the DOM
+  // Increase it by 1 and update the page
   document.getElementById("incorrect").innerText = ++oldScore;
-};
+}
 
 /**
- * Displays an addition question by updating the DOM elements
- * with the two operands and the addition operator.
+ * Displays an addition question with the two generated numbers
  */
 function displayAdditionQuestion(operand1, operand2) {
-  // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
+  // Show operand1 and operand2 in the appropriate span elements
   document.getElementById("operand1").textContent = operand1;
   document.getElementById("operand2").textContent = operand2;
-  // Set the text of the element with id "operator" to the addition symbol
+  // Set the operator to "+"
   document.getElementById("operator").textContent = "+";
-};
+}
 
 /**
- * Displays a subtraction question by ensuring the larger number is the first operand.
- * This avoids negative results in the subtraction.
+ * Displays a subtraction question, making sure the result is not negative
  */
 function displaySubtractionQuestion(operand1, operand2) {
-  // Determine the larger and smaller operands to avoid negative results
+  // Use the larger number as operand1 to avoid negative answers
   const largerOperand = operand1 > operand2 ? operand1 : operand2;
   const smallerOperand = operand1 > operand2 ? operand2 : operand1;
-  // Update the DOM elements with the operands
+  // Show the values in the spans
   document.getElementById("operand1").textContent = largerOperand;
   document.getElementById("operand2").textContent = smallerOperand;
-  // Set the operator symbol to minus
+  // Set the operator to "-"
   document.getElementById("operator").textContent = "-";
-};
+}
 
+/**
+ * Displays a multiplication question with the two numbers
+ */
 function displayMultiplicationQuestion(operand1, operand2) {
-    // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
-    document.getElementById("operand1").textContent = operand1;
-    document.getElementById("operand2").textContent = operand2;
-    // Set the text of the element with id "operator" to the multiplication symbol
-    document.getElementById("operator").textContent = "x";
-};
+  // Show both numbers
+  document.getElementById("operand1").textContent = operand1;
+  document.getElementById("operand2").textContent = operand2;
+  // Set the operator to "x"
+  document.getElementById("operator").textContent = "x";
+}
 
+/**
+ * Displays a division question, using larger number as numerator
+ */
 function displayDivisionQuestion(operand1, operand2) {
+  // Avoid dividing by 0 and ensure numerator is greater than denominator
+  const largerOperand = operand1 > operand2 ? operand1 : operand2;
+  const smallerOperand = operand1 > operand2 ? operand2 : operand1 || 1;
+  // Show the numbers
+  document.getElementById("operand1").textContent = largerOperand;
+  document.getElementById("operand2").textContent = smallerOperand;
+  // Set the operator to "/"
+  document.getElementById("operator").textContent = "/";
 }
