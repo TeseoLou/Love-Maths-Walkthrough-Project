@@ -66,7 +66,7 @@ function runGame(gameType) {
  */
 function checkAnswer() {
   // Get the user's answer from the input box and convert it to a number
-  let userAnswer = parseInt(document.getElementById("answer-box").value);
+  let userAnswer = parseInt(document.getElementById("answer--box").value);
 
   // Calculate the correct answer based on the current game type
   let correctAnswer = calculateCorrectAnswer();
