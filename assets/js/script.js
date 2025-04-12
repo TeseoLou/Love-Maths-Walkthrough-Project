@@ -31,8 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function runGame(gameType) {
   // Clear any previous answer from the input box
-  document.getElementById("answer-box").value = "";
-
+  document.getElementById("answer--box").value = "";
+  // Move focus back to the input box for user convenience
+  document.getElementById("answer--box").focus();
   // Generate two random numbers between 1 and 25
   let num1 = Math.floor(Math.random() * 25) + 1;
   let num2 = Math.floor(Math.random() * 25) + 1;
