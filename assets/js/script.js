@@ -39,6 +39,9 @@ function runGame(gameType) {
   if (gameType === "addition") {
     // If so, call the function to display an addition question using the two numbers
     displayAdditionQuestion(num1, num2);
+  } else if (gameType === "subtraction") {
+    // If so, call the function to display an subtraction question using the two numbers
+    displaySubtractionQuestion(num1, num2);
   } else if (gameType === "multiplication") {
     // If so, call the function to display an multiplication question using the two numbers
     displayMultiplicationQuestion(num1, num2);
@@ -48,7 +51,7 @@ function runGame(gameType) {
     // Then throw an error to stop execution and signal the issue
     throw `Unknown game type: ${gameType}. Aborting!`;
   }
-}
+};
 
 /**
  * Checks the user's answer against the correct answer,
@@ -76,7 +79,7 @@ function checkAnswer() {
   }
   // Start a new game using the same game type
   runGame(calculatedAnswer[1]);
-}
+};
 
 /**
  * Gets the operands and the operator directly from the DOM , and returns the correct answer
@@ -91,6 +94,9 @@ function calculateCorrectAnswer() {
   if (operator === "+") {
     // If the operator is addition, return the sum and the string "addition"
     return [operand1 + operand2, "addition"];
+  } else if (operator = "-") {
+    // If the operator is subtraction, return the product and the string "subtraction""
+    return [operand1 - operand2, "subtraction"];
   } else if (operator === "x") {
     // If the operator is multiplication, return the product and the string "multiplication"
     return [operand1 * operand2, "multiplication"];
@@ -99,7 +105,7 @@ function calculateCorrectAnswer() {
     // If the operator is not implemented, alert the user and throw an error
     throw `Unimplemented operator ${operator}, aborting!`;
   }
-}
+};
 
 /**
  * Increments the user's correct answer score by 1
@@ -110,7 +116,7 @@ function incrementScore() {
   let oldScore = parseInt(document.getElementById("score").innerText);
   // Increment the score by 1 and update the DOM
   document.getElementById("score").innerText = ++oldScore;
-}
+};
 
 /**
  * Increments the user's incorrect answer count by 1
@@ -121,7 +127,7 @@ function incrementWrongAnswer() {
   let oldScore = parseInt(document.getElementById("incorrect").innerText);
   // Increment the incorrect answer count by 1 and update the DOM
   document.getElementById("incorrect").innerText = ++oldScore;
-}
+};
 
 /**
  * Displays an addition question by updating the DOM elements
@@ -133,9 +139,22 @@ function displayAdditionQuestion(operand1, operand2) {
   document.getElementById("operand2").textContent = operand2;
   // Set the text of the element with id "operator" to the addition symbol
   document.getElementById("operator").textContent = "+";
-}
+};
 
-function displaySubtractionQuestion() {}
+/**
+ * Displays a subtraction question by ensuring the larger number is the first operand.
+ * This avoids negative results in the subtraction.
+ */
+function displaySubtractionQuestion(operand1, operand2) {
+  // Determine the larger and smaller operands to avoid negative results
+  const largerOperand = operand1 > operand2 ? operand1 : operand2;
+  const smallerOperand = operand1 > operand2 ? operand2 : operand1;
+  // Update the DOM elements with the operands
+  document.getElementById("operand1").textContent = largerOperand;
+  document.getElementById("operand2").textContent = smallerOperand;
+  // Set the operator symbol to minus
+  document.getElementById("operator").textContent = "-";
+};
 
 function displayMultiplicationQuestion(operand1, operand2) {
     // Set the text of the elements with ids "operand1" and "operand2" to the values of operand1 operand2
@@ -143,6 +162,6 @@ function displayMultiplicationQuestion(operand1, operand2) {
     document.getElementById("operand2").textContent = operand2;
     // Set the text of the element with id "operator" to the multiplication symbol
     document.getElementById("operator").textContent = "x";
-  }
+};
 
 function displayDivisionQuestion() {}
