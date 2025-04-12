@@ -31,10 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 // Define the main game function and accept a parameter called gameType to determine the type of game
 function runGame(gameType) {
+  // Each time runGame function is called it sets value of "answer-box" to empty
+  document.getElementById("answer-box").value = "";
   // Generate two random numbers between 1-25 and assign them to num1 and num2
   let num1 = Math.floor(Math.random() * 25) + 1;
   let num2 = Math.floor(Math.random() * 25) + 1;
-
   // Check if the game type is "addition"
   if (gameType === "addition") {
     // If so, call the function to display an addition question using the two numbers
@@ -94,7 +95,7 @@ function calculateCorrectAnswer() {
   if (operator === "+") {
     // If the operator is addition, return the sum and the string "addition"
     return [operand1 + operand2, "addition"];
-  } else if (operator = "-") {
+  } else if (operator === "-") {
     // If the operator is subtraction, return the product and the string "subtraction""
     return [operand1 - operand2, "subtraction"];
   } else if (operator === "x") {
@@ -164,4 +165,5 @@ function displayMultiplicationQuestion(operand1, operand2) {
     document.getElementById("operator").textContent = "x";
 };
 
-function displayDivisionQuestion() {}
+function displayDivisionQuestion(operand1, operand2) {
+}
